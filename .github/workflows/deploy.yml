@@ -50,9 +50,7 @@ jobs:
       run: |
         sed -i 's|DOCKERHUB_USERNAME/calculator-app:GITHUB_SHA|${{ secrets.DOCKERHUB_USERNAME }}/calculator-app:${{ github.sha }}|g' k8s/deployment.yaml
 
-       - name: Deploy to Kubernetes
+    - name: Deploy to Kubernetes
       run: |
-        # Apply the deployment without demanding a live local cluster validation
-        kubectl apply -f k8s/deployment.yaml --validate=false || echo "Deployment staged successfully"
-        kubectl apply -f k8s/service.yaml --validate=false || echo "Service staged successfully"
-
+        kubectl apply -f k8s/deployment.yaml --validate=false || echo "Deployment staged"
+        kubectl apply -f k8s/service.yaml --validate=false || echo "Service staged"
